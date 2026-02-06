@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 	<head>
 		<meta charset="UTF-8" />
@@ -357,233 +357,69 @@
 		}
 
 		/* ========================================================
-		   Sürücü Veritabanı - İşletim sistemi ve mimariye göre
+		   Sürücü Veritabanı - JSON'dan yüklenir
 		   ======================================================== */
-		var driverDB = {
+		var driverDB = null;
+		var DRIVERS_JSON_URL = 'https://raw.githubusercontent.com/BerkayCimendag/eimzarehber/main/drivers.json';
+
+		function loadDriverDB(callback) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', DRIVERS_JSON_URL, true);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						try {
+							driverDB = JSON.parse(xhr.responseText);
+							callback(true);
+						} catch (e) {
+							console.error('JSON parse hatası:', e);
+							callback(false);
+						}
+					} else {
+						console.error('Sürücü veritabanı yüklenemedi. HTTP:', xhr.status);
+						callback(false);
+					}
+				}
+			};
+			xhr.send();
+		}
+
+		/* Fallback inline driverDB - JSON yüklenemezse kullanılır */
+		var fallbackDriverDB = {
 			java: {
-				"win11-64": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 11 (64-bit)",
-					file: "jre-8uXXX-windows-x64.exe"
-				},
-				"win11-32": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 11 (32-bit)",
-					file: "jre-8uXXX-windows-i586.exe"
-				},
-				"win10-64": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=252905_0d06828d282343ea81775b28020a7cd3",
-					label: "Java 8 — Windows 10 (64-bit)",
-					file: "jre-8uXXX-windows-x64.exe"
-				},
-				"win10-32": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 10 (32-bit)",
-					file: "jre-8uXXX-windows-i586.exe"
-				},
-				"win81-64": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 8.1 (64-bit)",
-					file: "jre-8uXXX-windows-x64.exe"
-				},
-				"win81-32": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 8.1 (32-bit)",
-					file: "jre-8uXXX-windows-i586.exe"
-				},
-				"win8-64": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 8 (64-bit)",
-					file: "jre-8uXXX-windows-x64.exe"
-				},
-				"win8-32": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 8 (32-bit)",
-					file: "jre-8uXXX-windows-i586.exe"
-				},
-				"win7-64": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 7 (64-bit)",
-					file: "jre-8uXXX-windows-x64.exe"
-				},
-				"win7-32": {
-					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
-					label: "Java 8 — Windows 7 (32-bit)",
-					file: "jre-8uXXX-windows-i586.exe"
-				},
-				fallback: {
-					url: "https://www.java.com/en/download/manual.jsp",
-					label: "Java — Manuel İndirme Sayfası",
-					file: "java.com"
+				"fallback": {
+					url: "https://www.java.com/tr/download/",
+					label: "Java — Manuel İndirme",
+					file: "java-installer.exe"
 				}
 			},
 			akis: {
-				"win11-64": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x64.exe",
-					label: "AKİS Akıllı Kart — Windows 11 (64-bit)",
-					file: "AkisKartiPCSCDrv-W10-W11-x64.exe"
-				},
-				"win11-32": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x86.exe",
-					label: "AKİS Akıllı Kart — Windows 11 (32-bit)",
-					file: "AkisKartiPCSCDrv-W10-W11-x86.exe"
-				},
-				"win10-64": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x64.exe",
-					label: "AKİS Akıllı Kart — Windows 10 (64-bit)",
-					file: "AkisKartiPCSCDrv-W10-W11-x64.exe"
-				},
-				"win10-32": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x86.exe",
-					label: "AKİS Akıllı Kart — Windows 10 (32-bit)",
-					file: "AkisKartiPCSCDrv-W10-W11-x86.exe"
-				},
-				"win81-64": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x64.exe",
-					label: "AKİS Akıllı Kart — Windows 8.1 (64-bit)",
-					file: "AkisKartiPCSCDrv-W7-W81-x64.exe"
-				},
-				"win81-32": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x86.exe",
-					label: "AKİS Akıllı Kart — Windows 8.1 (32-bit)",
-					file: "AkisKartiPCSCDrv-W7-W81-x86.exe"
-				},
-				"win8-64": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x64.exe",
-					label: "AKİS Akıllı Kart — Windows 8 (64-bit)",
-					file: "AkisKartiPCSCDrv-W7-W81-x64.exe"
-				},
-				"win8-32": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x86.exe",
-					label: "AKİS Akıllı Kart — Windows 8 (32-bit)",
-					file: "AkisKartiPCSCDrv-W7-W81-x86.exe"
-				},
-				"win7-64": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x64.exe",
-					label: "AKİS Akıllı Kart — Windows 7 (64-bit)",
-					file: "AkisKartiPCSCDrv-W7-W81-x64.exe"
-				},
-				"win7-32": {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x86.exe",
-					label: "AKİS Akıllı Kart — Windows 7 (32-bit)",
-					file: "AkisKartiPCSCDrv-W7-W81-x86.exe"
-				},
-				fallback: {
-					url: "https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/",
-					label: "AKİS — Manuel İndirme Sayfası",
-					file: "kamusm.bilgem.tubitak.gov.tr"
+				"fallback": {
+					url: "https://cdn.e-guven.com/akis-kurulum/AKISv3_kurulum.exe",
+					label: "AKİS — Manuel İndirme",
+					file: "AKISv3_kurulum.exe"
 				}
 			},
 			belgenet: {
-				"64": {
-					url: "https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/Belgenet_Imza_x64.msi",
-					label: "Belgenet İmza — 64-bit",
-					file: "Belgenet_Imza_x64.msi"
-				},
-				"32": {
-					url: "https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/Belgenet_Imza.msi",
-					label: "Belgenet İmza — 32-bit",
-					file: "Belgenet_Imza.msi"
-				},
-				fallback: {
-					url: "https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/",
-					label: "Belgenet — Manuel İndirme Sayfası",
-					file: "belgenet.com.tr"
+				"fallback": {
+					url: "https://belgenet.com.tr/destek",
+					label: "BelgeNET — Manuel İndirme",
+					file: "belgenet-installer.exe"
 				}
 			},
 			eimza: {
-				default: {
-					url: "https://cbs.tkgm.gov.tr/eimza/32/index.html",
-					label: "E-İmza Uygulaması",
-					file: "cbs.tkgm.gov.tr"
+				"default": {
+					url: "https://e-imzaarsivi.btk.gov.tr/surucu/E-imzaWebKurulum.7.0.07.exe",
+					label: "E-imza Web Kurulum v7.0.07",
+					file: "E-imzaWebKurulum.7.0.07.exe"
 				}
 			},
-			/* Kart Okuyucu Sürücüleri: reader ID + os-arch → driver */
 			reader: {
-				/* 0 = MİLKO */
-				"0-win11-64": { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 11 (64-bit)", file: "Milko_x64.exe" },
-				"0-win11-32": { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 11 (32-bit)", file: "Milko_x86.exe" },
-				"0-win10-64": { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 10 (64-bit)", file: "Milko_x64.exe" },
-				"0-win10-32": { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 10 (32-bit)", file: "Milko_x86.exe" },
-				"0-win81-64": { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 8.1 (64-bit)", file: "Milko_x64.exe" },
-				"0-win81-32": { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 8.1 (32-bit)", file: "Milko_x86.exe" },
-				"0-win8-64":  { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 8 (64-bit)", file: "Milko_x64.exe" },
-				"0-win8-32":  { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 8 (32-bit)", file: "Milko_x86.exe" },
-				"0-win7-64":  { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 7 (64-bit)", file: "Milko_x64.exe" },
-				"0-win7-32":  { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 7 (32-bit)", file: "Milko_x86.exe" },
-				"0-fallback": { url: "suruculer/MilkoReader/MilkoDriver.zip", label: "MİLKO — Tüm Sürücüler", file: "MilkoDriver.zip" },
-				/* 1 = Omnikey */
-				"1-win11-64": { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 11 (64-bit)", file: "Omnikey_x64.exe" },
-				"1-win11-32": { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 11 (32-bit)", file: "Omnikey_x86.exe" },
-				"1-win10-64": { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 10 (64-bit)", file: "Omnikey_x64.exe" },
-				"1-win10-32": { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 10 (32-bit)", file: "Omnikey_x86.exe" },
-				"1-win81-64": { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 8.1 (64-bit)", file: "Omnikey_x64.exe" },
-				"1-win81-32": { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 8.1 (32-bit)", file: "Omnikey_x86.exe" },
-				"1-win8-64":  { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 8 (64-bit)", file: "Omnikey_x64.exe" },
-				"1-win8-32":  { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 8 (32-bit)", file: "Omnikey_x86.exe" },
-				"1-win7-64":  { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 7 (64-bit)", file: "Omnikey_x64.exe" },
-				"1-win7-32":  { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 7 (32-bit)", file: "Omnikey_x86.exe" },
-				"1-fallback": { url: "suruculer/omnikey/", label: "Omnikey — Manuel İndirme", file: "omnikey" },
-				/* 2 = Gemplus */
-				"2-win11-64": { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 11 (64-bit)", file: "Gemplus_x64.exe" },
-				"2-win11-32": { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 11 (32-bit)", file: "Gemplus_x86.exe" },
-				"2-win10-64": { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 10 (64-bit)", file: "Gemplus_x64.exe" },
-				"2-win10-32": { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 10 (32-bit)", file: "Gemplus_x86.exe" },
-				"2-win81-64": { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 8.1 (64-bit)", file: "Gemplus_x64.exe" },
-				"2-win81-32": { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 8.1 (32-bit)", file: "Gemplus_x86.exe" },
-				"2-win8-64":  { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 8 (64-bit)", file: "Gemplus_x64.exe" },
-				"2-win8-32":  { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 8 (32-bit)", file: "Gemplus_x86.exe" },
-				"2-win7-64":  { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 7 (64-bit)", file: "Gemplus_x64.exe" },
-				"2-win7-32":  { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 7 (32-bit)", file: "Gemplus_x86.exe" },
-				"2-fallback": { url: "suruculer/gemplus/", label: "Gemplus — Manuel İndirme", file: "gemplus" },
-				/* 3 = ACS ACR 38T */
-				"3-win11-64": { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 11 (64-bit)", file: "ACS38T_x64.exe" },
-				"3-win11-32": { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 11 (32-bit)", file: "ACS38T_x86.exe" },
-				"3-win10-64": { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 10 (64-bit)", file: "ACS38T_x64.exe" },
-				"3-win10-32": { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 10 (32-bit)", file: "ACS38T_x86.exe" },
-				"3-win81-64": { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 8.1 (64-bit)", file: "ACS38T_x64.exe" },
-				"3-win81-32": { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 8.1 (32-bit)", file: "ACS38T_x86.exe" },
-				"3-win8-64":  { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 8 (64-bit)", file: "ACS38T_x64.exe" },
-				"3-win8-32":  { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 8 (32-bit)", file: "ACS38T_x86.exe" },
-				"3-win7-64":  { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 7 (64-bit)", file: "ACS38T_x64.exe" },
-				"3-win7-32":  { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 7 (32-bit)", file: "ACS38T_x86.exe" },
-				"3-fallback": { url: "suruculer/acs38t/", label: "ACS ACR 38T — Manuel İndirme", file: "acs38t" },
-				/* 4 = ACS ACR 39T */
-				"4-win11-64": { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 11 (64-bit)", file: "ACS39T_x64.exe" },
-				"4-win11-32": { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 11 (32-bit)", file: "ACS39T_x86.exe" },
-				"4-win10-64": { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 10 (64-bit)", file: "ACS39T_x64.exe" },
-				"4-win10-32": { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 10 (32-bit)", file: "ACS39T_x86.exe" },
-				"4-win81-64": { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 8.1 (64-bit)", file: "ACS39T_x64.exe" },
-				"4-win81-32": { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 8.1 (32-bit)", file: "ACS39T_x86.exe" },
-				"4-win8-64":  { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 8 (64-bit)", file: "ACS39T_x64.exe" },
-				"4-win8-32":  { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 8 (32-bit)", file: "ACS39T_x86.exe" },
-				"4-win7-64":  { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 7 (64-bit)", file: "ACS39T_x64.exe" },
-				"4-win7-32":  { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 7 (32-bit)", file: "ACS39T_x86.exe" },
-				"4-fallback": { url: "suruculer/acs39t/", label: "ACS ACR 39T — Manuel İndirme", file: "acs39t" },
-				/* 5 = Gemalto IDBRIDGE K30 */
-				"5-win11-64": { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 11 (64-bit)", file: "Gemalto_x64.exe" },
-				"5-win11-32": { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 11 (32-bit)", file: "Gemalto_x86.exe" },
-				"5-win10-64": { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 10 (64-bit)", file: "Gemalto_x64.exe" },
-				"5-win10-32": { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 10 (32-bit)", file: "Gemalto_x86.exe" },
-				"5-win81-64": { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 8.1 (64-bit)", file: "Gemalto_x64.exe" },
-				"5-win81-32": { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 8.1 (32-bit)", file: "Gemalto_x86.exe" },
-				"5-win8-64":  { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 8 (64-bit)", file: "Gemalto_x64.exe" },
-				"5-win8-32":  { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 8 (32-bit)", file: "Gemalto_x86.exe" },
-				"5-win7-64":  { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 7 (64-bit)", file: "Gemalto_x64.exe" },
-				"5-win7-32":  { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 7 (32-bit)", file: "Gemalto_x86.exe" },
-				"5-fallback": { url: "suruculer/gemalto/", label: "Gemalto IDBRIDGE K30 — Manuel İndirme", file: "gemalto" },
-				/* 6 = ATR 19 */
-				"6-win11-64": { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 11 (64-bit)", file: "ATR19_x64.exe" },
-				"6-win11-32": { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 11 (32-bit)", file: "ATR19_x86.exe" },
-				"6-win10-64": { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 10 (64-bit)", file: "ATR19_x64.exe" },
-				"6-win10-32": { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 10 (32-bit)", file: "ATR19_x86.exe" },
-				"6-win81-64": { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 8.1 (64-bit)", file: "ATR19_x64.exe" },
-				"6-win81-32": { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 8.1 (32-bit)", file: "ATR19_x86.exe" },
-				"6-win8-64":  { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 8 (64-bit)", file: "ATR19_x64.exe" },
-				"6-win8-32":  { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 8 (32-bit)", file: "ATR19_x86.exe" },
-				"6-win7-64":  { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 7 (64-bit)", file: "ATR19_x64.exe" },
-				"6-win7-32":  { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 7 (32-bit)", file: "ATR19_x86.exe" },
-				"6-fallback": { url: "suruculer/atr19/", label: "ATR 19 — Manuel İndirme", file: "atr19" }
+				"fallback": {
+					url: "#",
+					label: "Kart Okuyucu — Önce cihaz seçin",
+					file: ""
+				}
 			}
 		};
 
@@ -744,8 +580,9 @@
 		}
 
 		/* ========================================================
-		   Sayfa Başlangıcı
+		   Sayfa Başlangıcı - JSON yüklendikten sonra çalışır
 		   ======================================================== */
+		function initPage() {
 		var sys = detectSystem();
 		var detOs = document.getElementById("det-os");
 		var detVersion = document.getElementById("det-version");
@@ -984,6 +821,23 @@
 				};
 			})(readerCards[r]);
 		}
+		} // initPage sonu
+
+		/* ========================================================
+		   JSON Yükle ve Sayfayı Başlat
+		   ======================================================== */
+		loadDriverDB(function(success) {
+			if (!success) {
+				// JSON yüklenemezse fallback kullan
+				driverDB = fallbackDriverDB;
+				console.warn('Sürücü veritabanı yüklenemedi, fallback kullanılıyor.');
+				document.title = 'E-İmza Rehberi [OFFLINE]';
+			} else {
+				console.log('Sürücü veritabanı başarıyla yüklendi. Versiyon:', driverDB.version);
+				document.title = 'E-İmza Rehberi - Yazılım Kurulumu';
+			}
+			initPage();
+		});
 
 		</script>
 	</body>
