@@ -156,7 +156,7 @@
 									<h3 class="guide-panel__title">Java Runtime Environment</h3>
 									<p class="guide-panel__url" id="java-url-text">java.com/en/download/manual.jsp</p>
 								</div>
-								<a href="#" class="button button--small" id="java-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://javadl.oracle.com/webapps/download/AutoDL?BundleId=252905_0d06828d282343ea81775b28020a7cd3">Sürücüyü İndir</a>
+								<a href="#" class="button button--small" id="java-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="#">Sürücüyü İndir</a>
 							</div>
 							<div class="guide-panel__body">
 								<div class="driver-info" id="java-driver-info"></div>
@@ -244,7 +244,7 @@
 									<h3 class="guide-panel__title">Akis Akıllı Kart Paketi</h3>
 									<p class="guide-panel__url" id="akis-url-text">kamusm.bilgem.tubitak.gov.tr</p>
 								</div>
-								<a href="#" class="button button--small" id="akis-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/">Sürücüyü İndir</a>
+								<a href="#" class="button button--small" id="akis-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="#">Sürücüyü İndir</a>
 							</div>
 							<div class="guide-panel__body">
 								<div class="driver-info" id="akis-driver-info"></div>
@@ -269,7 +269,7 @@
 									<h3 class="guide-panel__title">Belgenet İmza Servisi</h3>
 									<p class="guide-panel__url" id="belgenet-url-text">belgenet.com.tr</p>
 								</div>
-								<a href="#" class="button button--small" id="belgenet-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/">Sürücüyü İndir</a>
+								<a href="#" class="button button--small" id="belgenet-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="#">Sürücüyü İndir</a>
 							</div>
 							<div class="guide-panel__body">
 								<div class="driver-info" id="belgenet-driver-info"></div>
@@ -295,7 +295,7 @@
 									<h3 class="guide-panel__title">E-İmza Uygulaması</h3>
 									<p class="guide-panel__url" id="eimza-url-text">cbs.tkgm.gov.tr</p>
 								</div>
-								<a href="#" class="button button--small" id="eimza-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://cbs.tkgm.gov.tr/eimza/32/index.html">Sürücüyü İndir</a>
+								<a href="#" class="button button--small" id="eimza-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="#">Sürücüyü İndir</a>
 							</div>
 							<div class="guide-panel__body">
 								<div class="driver-info" id="eimza-driver-info"></div>
@@ -360,7 +360,7 @@
 		   Sürücü Veritabanı - JSON'dan yüklenir
 		   ======================================================== */
 		var driverDB = null;
-		var DRIVERS_JSON_URL = 'https://raw.githubusercontent.com/BerkayCimendag/eimzarehber/main/drivers.json';
+		var DRIVERS_JSON_URL = 'https://raw.githubusercontent.com/BerkayCimendag/eimzarehber/fromjson/drivers.json';
 
 		function loadDriverDB(callback) {
 			var xhr = new XMLHttpRequest();

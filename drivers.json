@@ -4,7 +4,7 @@
 
 	"java": {
 		"win11-64": {
-			"url": "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
+			"url": "asfsaf",
 			"label": "Java 8 — Windows 11 (64-bit)",
 			"file": "jre-8uXXX-windows-x64.exe"
 		},
@@ -14,7 +14,7 @@
 			"file": "jre-8uXXX-windows-i586.exe"
 		},
 		"win10-64": {
-			"url": "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=252905_0d06828d282343ea81775b28020a7cd3",
+			"url": "asfasf",
 			"label": "Java 8 — Windows 10 (64-bit)",
 			"file": "jre-8uXXX-windows-x64.exe"
 		},
