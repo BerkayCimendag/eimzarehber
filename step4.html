@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>E-İmza Rehberi - Yazılım Kurulumu</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="page page--top">
+			<div class="installer">
+
+				<!-- Sol Panel: Adımlar -->
+				<div class="installer__nav">
+					<h2 class="installer__title">Kurulum Adımları</h2>
+					<p class="installer__desc">Sırayla her yazılımı kurun ve işaretleyin.</p>
+
+					<!-- Sistem Algılama Kutusu -->
+					<div class="sysdetect" id="sysdetect">
+						<div class="sysdetect__header">
+							<span class="sysdetect__icon">&#128187;</span>
+							<strong>Sistem Bilgileri</strong>
+						</div>
+						<div class="sysdetect__grid">
+							<div class="sysdetect__item">
+								<span class="sysdetect__label">İşletim Sistemi</span>
+								<strong class="sysdetect__value" id="det-os">Algılanıyor...</strong>
+							</div>
+							<div class="sysdetect__item">
+								<span class="sysdetect__label">Sürüm</span>
+								<strong class="sysdetect__value" id="det-version">Algılanıyor...</strong>
+							</div>
+							<div class="sysdetect__item">
+								<span class="sysdetect__label">Mimari</span>
+								<strong class="sysdetect__value" id="det-arch">Algılanıyor...</strong>
+							</div>
+						</div>
+						<div class="sysdetect__badge" id="det-badge">
+							<span id="det-badge-text">Sistem algılanıyor...</span>
+						</div>
+						<button class="sysdetect__toggle" id="manual-toggle" type="button">Elle Değiştir</button>
+						<div class="sysdetect__manual" id="manual-section" style="display:none;">
+							<label class="sysdetect__select-label">
+								İşletim Sistemi
+								<select id="manual-os" class="sysdetect__select">
+									<option value="">İşletim Sistemi</option>
+									<option value="1">Windows</option>
+									<option value="2">Linux</option>
+									<option value="3">Mac OS</option>
+								</select>
+							</label>
+							<label class="sysdetect__select-label">
+								İşletim Sistemi Sürümü
+								<select id="manual-edition" class="sysdetect__select">
+									<option value="">Önce İşletim Sistemi Seçin</option>
+								</select>
+							</label>
+							<label class="sysdetect__select-label">
+								İşletim Sistemi Tipi
+								<select id="manual-arch" class="sysdetect__select">
+									<option value="">İşletim Sistemi Tipi</option>
+									<option value="32">32 Bit</option>
+									<option value="64">64 Bit</option>
+								</select>
+							</label>
+							<button class="button button--small sysdetect__apply" id="manual-apply" type="button">Uygula</button>
+						</div>
+					</div>
+
+					<div class="inst-step inst-step--active" data-index="0" id="step-0">
+						<div class="inst-step__num">1</div>
+						<div class="inst-step__body">
+							<span class="inst-step__name">Java</span>
+							<span class="inst-step__sub">java.com</span>
+						</div>
+						<label class="inst-check" onclick="event.stopPropagation()">
+							<input type="checkbox" class="inst-check__input" data-check="0" />
+							<span class="inst-check__box"></span>
+						</label>
+					</div>
+
+					<div class="inst-step" data-index="1" id="step-1">
+						<div class="inst-step__num">2</div>
+						<div class="inst-step__body">
+							<span class="inst-step__name">Kart Okuyucu Sürücüsü</span>
+							<span class="inst-step__sub">Kart okuyucu seçin</span>
+						</div>
+						<label class="inst-check" onclick="event.stopPropagation()">
+							<input type="checkbox" class="inst-check__input" data-check="1" />
+							<span class="inst-check__box"></span>
+						</label>
+					</div>
+
+					<div class="inst-step" data-index="2" id="step-2">
+						<div class="inst-step__num">3</div>
+						<div class="inst-step__body">
+							<span class="inst-step__name">Akis Akıllı Kart Paketi</span>
+							<span class="inst-step__sub">kamusm.bilgem.tubitak.gov.tr</span>
+						</div>
+						<label class="inst-check" onclick="event.stopPropagation()">
+							<input type="checkbox" class="inst-check__input" data-check="2" />
+							<span class="inst-check__box"></span>
+						</label>
+					</div>
+
+					<div class="inst-step" data-index="3" id="step-3">
+						<div class="inst-step__num">4</div>
+						<div class="inst-step__body">
+							<span class="inst-step__name">Belgenet İmza</span>
+							<span class="inst-step__sub">belgenet.com.tr</span>
+						</div>
+						<label class="inst-check" onclick="event.stopPropagation()">
+							<input type="checkbox" class="inst-check__input" data-check="3" />
+							<span class="inst-check__box"></span>
+						</label>
+					</div>
+
+					<div class="inst-step" data-index="4" id="step-4">
+						<div class="inst-step__num">5</div>
+						<div class="inst-step__body">
+							<span class="inst-step__name">E-İmza Uygulaması</span>
+							<span class="inst-step__sub">cbs.tkgm.gov.tr</span>
+						</div>
+						<label class="inst-check" onclick="event.stopPropagation()">
+							<input type="checkbox" class="inst-check__input" data-check="4" />
+							<span class="inst-check__box"></span>
+						</label>
+					</div>
+
+					<div class="inst-step" data-index="5" id="step-5">
+						<div class="inst-step__num">6</div>
+						<div class="inst-step__body">
+							<span class="inst-step__name">E-İmza Kontrol</span>
+							<span class="inst-step__sub">localhost:50899</span>
+						</div>
+						<label class="inst-check" onclick="event.stopPropagation()">
+							<input type="checkbox" class="inst-check__input" data-check="5" />
+							<span class="inst-check__box"></span>
+						</label>
+					</div>
+
+					<div class="installer__footer">
+						<p class="installer__warn" id="installer-warn">Tüm adımları tamamlayıp işaretleyin.</p>
+						<button class="button button--disabled" id="finish-btn" type="button" disabled>Tamamla</button>
+					</div>
+				</div>
+
+				<!-- Sağ Panel: İçerik -->
+				<div class="installer__content" id="installer-content">
+
+					<!-- Panel 0: Java -->
+					<div class="inst-panel inst-panel--visible" id="panel-0">
+						<div class="guide-panel">
+							<div class="guide-panel__header">
+								<div>
+									<h3 class="guide-panel__title">Java Runtime Environment</h3>
+									<p class="guide-panel__url" id="java-url-text">java.com/en/download/manual.jsp</p>
+								</div>
+								<a href="#" class="button button--small" id="java-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://javadl.oracle.com/webapps/download/AutoDL?BundleId=252905_0d06828d282343ea81775b28020a7cd3">Sürücüyü İndir</a>
+							</div>
+							<div class="guide-panel__body">
+								<div class="driver-info" id="java-driver-info"></div>
+								<h4 class="guide-panel__subtitle">Kurulum Talimatı</h4>
+								<ol class="guide-panel__steps" id="java-steps">
+									<li>Yukarıdaki <strong>"Sürücüyü İndir"</strong> butonuna tıklayın.</li>
+									<li>İndirilen <strong>.exe</strong> dosyasını çalıştırın.</li>
+									<li>Kurulum sihirbazında <strong>Install</strong> butonuna tıklayın.</li>
+									<li>Kurulum tamamlandığında bu sayfaya dönüp soldaki kutucuğu işaretleyin.</li>
+								</ol>
+								<div class="guide-panel__note" id="java-note">
+									<strong>Not:</strong> Sisteminize uygun Java sürümü otomatik algılandı.
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Panel 1: Kart Okuyucu Seçimi -->
+					<div class="inst-panel" id="panel-1">
+						<div class="guide-panel">
+							<div class="guide-panel__header">
+								<div>
+									<h3 class="guide-panel__title">Kart Okuyucu Sürücüsü</h3>
+									<p class="guide-panel__url">Kart okuyucunuzu seçin</p>
+								</div>
+								<a href="#" class="button button--small" id="reader-download-btn" style="display:none;" onclick="downloadFile(this.dataset.url);return false;" data-url="#">Sürücüyü İndir</a>
+							</div>
+							<div class="guide-panel__body">
+								<h4 class="guide-panel__subtitle">Lütfen size gönderilen kart okuyucuyu seçiniz</h4>
+								<div class="reader-grid" id="reader-grid">
+									<div class="reader-card" data-reader="5">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/gemalto.png" alt="Gemalto IDBRIDGE K30">
+										<span class="reader-card__name">Gemalto IDBRIDGE K30 USB</span>
+									</div>
+									<div class="reader-card" data-reader="0">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/Milko.png" alt="MİLKO">
+										<span class="reader-card__name">MİLKO</span>
+									</div>
+									<div class="reader-card" data-reader="1">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/omnikey.png" alt="Omnikey USB">
+										<span class="reader-card__name">Omnikey USB</span>
+									</div>
+									<div class="reader-card" data-reader="1">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/OmnikeyDekstopO.png" alt="Omnikey Masaüstü">
+										<span class="reader-card__name">Omnikey Masaüstü</span>
+									</div>
+									<div class="reader-card" data-reader="2">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/GemplusO.png" alt="Gemplus USB">
+										<span class="reader-card__name">Gemplus USB</span>
+									</div>
+									<div class="reader-card" data-reader="3">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/AcsO.png" alt="ACS 38T Kırmızı">
+										<span class="reader-card__name">ACS 38T USB Kırmızı</span>
+									</div>
+									<div class="reader-card" data-reader="3">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/acs_beyaz.png" alt="ACS 38T Beyaz">
+										<span class="reader-card__name">ACS 38T USB Beyaz</span>
+									</div>
+									<div class="reader-card" data-reader="3">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/acs_beyaz_masaustu.png" alt="ACS 38T Masaüstü">
+										<span class="reader-card__name">ACS 38T USB Masaüstü</span>
+									</div>
+									<div class="reader-card" data-reader="4">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/acs_39t_a1_tumrenkler.png" alt="ACS 39T">
+										<span class="reader-card__name">ACS 39T USB</span>
+									</div>
+									<div class="reader-card" data-reader="6">
+										<img src="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/images/atr19.png" alt="ATR 19">
+										<span class="reader-card__name">ATR 19 USB</span>
+									</div>
+								</div>
+								<div class="reader-result" id="reader-result" style="display:none;"></div>
+								<div class="guide-panel__note" id="reader-note" style="display:none;">
+									<strong>Not:</strong> Seçiminize göre sürücü bilgisi yukarıda gösterilecektir.
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Panel 2: Akis -->
+					<div class="inst-panel" id="panel-2">
+						<div class="guide-panel">
+							<div class="guide-panel__header">
+								<div>
+									<h3 class="guide-panel__title">Akis Akıllı Kart Paketi</h3>
+									<p class="guide-panel__url" id="akis-url-text">kamusm.bilgem.tubitak.gov.tr</p>
+								</div>
+								<a href="#" class="button button--small" id="akis-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/">Sürücüyü İndir</a>
+							</div>
+							<div class="guide-panel__body">
+								<div class="driver-info" id="akis-driver-info"></div>
+								<h4 class="guide-panel__subtitle">Kurulum Talimatı</h4>
+								<ol class="guide-panel__steps" id="akis-steps">
+									<li>Yukarıdaki <strong>"Sürücüyü İndir"</strong> butonuna tıklayın.</li>
+									<li>İndirilen dosyayı çalıştırıp kurulumu tamamlayın.</li>
+									<li>Kurulum bittiğinde soldaki kutucuğu işaretleyin.</li>
+								</ol>
+								<div class="guide-panel__note">
+									<strong>Önemli:</strong> Akis paketi güncel olmazsa E-İmza sertifika kontrolünde hata alırsınız. En son sürümü yüklediğinizden emin olun.
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Panel 3: Belgenet -->
+					<div class="inst-panel" id="panel-3">
+						<div class="guide-panel">
+							<div class="guide-panel__header">
+								<div>
+									<h3 class="guide-panel__title">Belgenet İmza Servisi</h3>
+									<p class="guide-panel__url" id="belgenet-url-text">belgenet.com.tr</p>
+								</div>
+								<a href="#" class="button button--small" id="belgenet-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/">Sürücüyü İndir</a>
+							</div>
+							<div class="guide-panel__body">
+								<div class="driver-info" id="belgenet-driver-info"></div>
+								<h4 class="guide-panel__subtitle">Kurulum Talimatı</h4>
+								<ol class="guide-panel__steps" id="belgenet-steps">
+									<li>Yukarıdaki <strong>"Sürücüyü İndir"</strong> butonuna tıklayın.</li>
+									<li>İndirilen <strong>.msi</strong> dosyasını çalıştırın.</li>
+									<li>Kurulum sihirbazını takip edip tamamlayın.</li>
+									<li>Soldaki kutucuğu işaretleyin.</li>
+								</ol>
+								<div class="guide-panel__note">
+									<strong>Not:</strong> Belgenet İmza Servisi EBYS üzerinden e-imza atmak için gereklidir.
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Panel 4: E-İmza Uygulaması -->
+					<div class="inst-panel" id="panel-4">
+						<div class="guide-panel">
+							<div class="guide-panel__header">
+								<div>
+									<h3 class="guide-panel__title">E-İmza Uygulaması</h3>
+									<p class="guide-panel__url" id="eimza-url-text">cbs.tkgm.gov.tr</p>
+								</div>
+								<a href="#" class="button button--small" id="eimza-download-btn" onclick="downloadFile(this.dataset.url);return false;" data-url="https://cbs.tkgm.gov.tr/eimza/32/index.html">Sürücüyü İndir</a>
+							</div>
+							<div class="guide-panel__body">
+								<div class="driver-info" id="eimza-driver-info"></div>
+								<h4 class="guide-panel__subtitle">Kurulum Talimatı</h4>
+								<ol class="guide-panel__steps">
+									<li>Yukarıdaki <strong>"Sürücüyü İndir"</strong> butonuna tıklayın.</li>
+									<li>Açılan sayfadaki <strong>kurulum dosyasını</strong> indirin.</li>
+									<li>İndirilen dosyayı çalıştırıp kurulumu başlatın.</li>
+									<li>Kurulum sihirbazını takip ederek tamamlayın.</li>
+									<li>Bilgisayarı yeniden başlatmanız istenirse yeniden başlatın.</li>
+									<li>Soldaki kutucuğu işaretleyin.</li>
+								</ol>
+								<div class="guide-panel__warn">
+									<strong>Dikkat:</strong> Eski E-İmza uygulaması yüklüyse önce kaldırmanız gerekir. (3. adımda yapılmış olmalı)
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Panel 5: E-İmza Kontrol -->
+					<div class="inst-panel" id="panel-5">
+						<div class="guide-panel">
+							<div class="guide-panel__header">
+								<div>
+									<h3 class="guide-panel__title">E-İmza Kontrol</h3>
+									<p class="guide-panel__url">localhost:50899</p>
+								</div>
+							</div>
+							<div class="guide-panel__body">
+								<h4 class="guide-panel__subtitle">Kontrol Talimatı</h4>
+								<ol class="guide-panel__steps">
+									<li><strong>Firefox 37</strong> tarayıcısını açın.</li>
+									<li>Adres çubuğuna <strong>localhost:50899/versiyon</strong> yazıp Enter'a basın.</li>
+									<li>Ekranda <strong>1.0.0.0</strong> yazısı görünüyorsa E-İmza servisi çalışıyor demektir.</li>
+									<li>Ardından adres çubuğuna <strong>localhost:50899/sertifikakontrol</strong> yazıp Enter'a basın.</li>
+									<li>Ekranda <strong>"sertifika geçerli"</strong> mesajı görünüyorsa sertifikanız aktif demektir.</li>
+									<li>Her iki kontrol de başarılıysa soldaki kutucuğu işaretleyin.</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script>
+		/* ========================================================
+		   İndirme Yardımcısı — about:blank üzerin referrer temizler
+		   Oracle gibi referrer kontrol eden siteler için gerekli
+		   ======================================================== */
+		function downloadFile(url) {
+			var w = window.open('about:blank', '_blank');
+			if (w) {
+				w.location.href = url;
+			} else {
+				alert('İndirme penceresi açılamadı. Lütfen popup engelleyiciyi kapatın.');
+			}
+		}
+
+		/* ========================================================
+		   Sürücü Veritabanı - İşletim sistemi ve mimariye göre
+		   ======================================================== */
+		var driverDB = {
+			java: {
+				"win11-64": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 11 (64-bit)",
+					file: "jre-8uXXX-windows-x64.exe"
+				},
+				"win11-32": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 11 (32-bit)",
+					file: "jre-8uXXX-windows-i586.exe"
+				},
+				"win10-64": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=252905_0d06828d282343ea81775b28020a7cd3",
+					label: "Java 8 — Windows 10 (64-bit)",
+					file: "jre-8uXXX-windows-x64.exe"
+				},
+				"win10-32": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 10 (32-bit)",
+					file: "jre-8uXXX-windows-i586.exe"
+				},
+				"win81-64": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 8.1 (64-bit)",
+					file: "jre-8uXXX-windows-x64.exe"
+				},
+				"win81-32": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 8.1 (32-bit)",
+					file: "jre-8uXXX-windows-i586.exe"
+				},
+				"win8-64": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 8 (64-bit)",
+					file: "jre-8uXXX-windows-x64.exe"
+				},
+				"win8-32": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 8 (32-bit)",
+					file: "jre-8uXXX-windows-i586.exe"
+				},
+				"win7-64": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 7 (64-bit)",
+					file: "jre-8uXXX-windows-x64.exe"
+				},
+				"win7-32": {
+					url: "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251406_d4f4e5c44d504fa880b3e6e71e898acf",
+					label: "Java 8 — Windows 7 (32-bit)",
+					file: "jre-8uXXX-windows-i586.exe"
+				},
+				fallback: {
+					url: "https://www.java.com/en/download/manual.jsp",
+					label: "Java — Manuel İndirme Sayfası",
+					file: "java.com"
+				}
+			},
+			akis: {
+				"win11-64": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x64.exe",
+					label: "AKİS Akıllı Kart — Windows 11 (64-bit)",
+					file: "AkisKartiPCSCDrv-W10-W11-x64.exe"
+				},
+				"win11-32": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x86.exe",
+					label: "AKİS Akıllı Kart — Windows 11 (32-bit)",
+					file: "AkisKartiPCSCDrv-W10-W11-x86.exe"
+				},
+				"win10-64": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x64.exe",
+					label: "AKİS Akıllı Kart — Windows 10 (64-bit)",
+					file: "AkisKartiPCSCDrv-W10-W11-x64.exe"
+				},
+				"win10-32": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W10-W11-x86.exe",
+					label: "AKİS Akıllı Kart — Windows 10 (32-bit)",
+					file: "AkisKartiPCSCDrv-W10-W11-x86.exe"
+				},
+				"win81-64": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x64.exe",
+					label: "AKİS Akıllı Kart — Windows 8.1 (64-bit)",
+					file: "AkisKartiPCSCDrv-W7-W81-x64.exe"
+				},
+				"win81-32": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x86.exe",
+					label: "AKİS Akıllı Kart — Windows 8.1 (32-bit)",
+					file: "AkisKartiPCSCDrv-W7-W81-x86.exe"
+				},
+				"win8-64": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x64.exe",
+					label: "AKİS Akıllı Kart — Windows 8 (64-bit)",
+					file: "AkisKartiPCSCDrv-W7-W81-x64.exe"
+				},
+				"win8-32": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x86.exe",
+					label: "AKİS Akıllı Kart — Windows 8 (32-bit)",
+					file: "AkisKartiPCSCDrv-W7-W81-x86.exe"
+				},
+				"win7-64": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x64.exe",
+					label: "AKİS Akıllı Kart — Windows 7 (64-bit)",
+					file: "AkisKartiPCSCDrv-W7-W81-x64.exe"
+				},
+				"win7-32": {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/urunler/akis/surucu/AkisKartiPCSCDrv-W7-W81-x86.exe",
+					label: "AKİS Akıllı Kart — Windows 7 (32-bit)",
+					file: "AkisKartiPCSCDrv-W7-W81-x86.exe"
+				},
+				fallback: {
+					url: "https://kamusm.bilgem.tubitak.gov.tr/islemler/surucu_yukleme_servisi/",
+					label: "AKİS — Manuel İndirme Sayfası",
+					file: "kamusm.bilgem.tubitak.gov.tr"
+				}
+			},
+			belgenet: {
+				"64": {
+					url: "https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/Belgenet_Imza_x64.msi",
+					label: "Belgenet İmza — 64-bit",
+					file: "Belgenet_Imza_x64.msi"
+				},
+				"32": {
+					url: "https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/Belgenet_Imza.msi",
+					label: "Belgenet İmza — 32-bit",
+					file: "Belgenet_Imza.msi"
+				},
+				fallback: {
+					url: "https://www.belgenet.com.tr/statics/BelgenetImzaServisiKurulumDosyalari/",
+					label: "Belgenet — Manuel İndirme Sayfası",
+					file: "belgenet.com.tr"
+				}
+			},
+			eimza: {
+				default: {
+					url: "https://cbs.tkgm.gov.tr/eimza/32/index.html",
+					label: "E-İmza Uygulaması",
+					file: "cbs.tkgm.gov.tr"
+				}
+			},
+			/* Kart Okuyucu Sürücüleri: reader ID + os-arch → driver */
+			reader: {
+				/* 0 = MİLKO */
+				"0-win11-64": { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 11 (64-bit)", file: "Milko_x64.exe" },
+				"0-win11-32": { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 11 (32-bit)", file: "Milko_x86.exe" },
+				"0-win10-64": { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 10 (64-bit)", file: "Milko_x64.exe" },
+				"0-win10-32": { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 10 (32-bit)", file: "Milko_x86.exe" },
+				"0-win81-64": { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 8.1 (64-bit)", file: "Milko_x64.exe" },
+				"0-win81-32": { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 8.1 (32-bit)", file: "Milko_x86.exe" },
+				"0-win8-64":  { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 8 (64-bit)", file: "Milko_x64.exe" },
+				"0-win8-32":  { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 8 (32-bit)", file: "Milko_x86.exe" },
+				"0-win7-64":  { url: "suruculer/MilkoReader/Milko_x64.exe", label: "MİLKO — Windows 7 (64-bit)", file: "Milko_x64.exe" },
+				"0-win7-32":  { url: "suruculer/MilkoReader/Milko_x86.exe", label: "MİLKO — Windows 7 (32-bit)", file: "Milko_x86.exe" },
+				"0-fallback": { url: "suruculer/MilkoReader/MilkoDriver.zip", label: "MİLKO — Tüm Sürücüler", file: "MilkoDriver.zip" },
+				/* 1 = Omnikey */
+				"1-win11-64": { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 11 (64-bit)", file: "Omnikey_x64.exe" },
+				"1-win11-32": { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 11 (32-bit)", file: "Omnikey_x86.exe" },
+				"1-win10-64": { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 10 (64-bit)", file: "Omnikey_x64.exe" },
+				"1-win10-32": { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 10 (32-bit)", file: "Omnikey_x86.exe" },
+				"1-win81-64": { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 8.1 (64-bit)", file: "Omnikey_x64.exe" },
+				"1-win81-32": { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 8.1 (32-bit)", file: "Omnikey_x86.exe" },
+				"1-win8-64":  { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 8 (64-bit)", file: "Omnikey_x64.exe" },
+				"1-win8-32":  { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 8 (32-bit)", file: "Omnikey_x86.exe" },
+				"1-win7-64":  { url: "suruculer/omnikey/Omnikey_x64.exe", label: "Omnikey — Windows 7 (64-bit)", file: "Omnikey_x64.exe" },
+				"1-win7-32":  { url: "suruculer/omnikey/Omnikey_x86.exe", label: "Omnikey — Windows 7 (32-bit)", file: "Omnikey_x86.exe" },
+				"1-fallback": { url: "suruculer/omnikey/", label: "Omnikey — Manuel İndirme", file: "omnikey" },
+				/* 2 = Gemplus */
+				"2-win11-64": { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 11 (64-bit)", file: "Gemplus_x64.exe" },
+				"2-win11-32": { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 11 (32-bit)", file: "Gemplus_x86.exe" },
+				"2-win10-64": { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 10 (64-bit)", file: "Gemplus_x64.exe" },
+				"2-win10-32": { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 10 (32-bit)", file: "Gemplus_x86.exe" },
+				"2-win81-64": { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 8.1 (64-bit)", file: "Gemplus_x64.exe" },
+				"2-win81-32": { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 8.1 (32-bit)", file: "Gemplus_x86.exe" },
+				"2-win8-64":  { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 8 (64-bit)", file: "Gemplus_x64.exe" },
+				"2-win8-32":  { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 8 (32-bit)", file: "Gemplus_x86.exe" },
+				"2-win7-64":  { url: "suruculer/gemplus/Gemplus_x64.exe", label: "Gemplus — Windows 7 (64-bit)", file: "Gemplus_x64.exe" },
+				"2-win7-32":  { url: "suruculer/gemplus/Gemplus_x86.exe", label: "Gemplus — Windows 7 (32-bit)", file: "Gemplus_x86.exe" },
+				"2-fallback": { url: "suruculer/gemplus/", label: "Gemplus — Manuel İndirme", file: "gemplus" },
+				/* 3 = ACS ACR 38T */
+				"3-win11-64": { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 11 (64-bit)", file: "ACS38T_x64.exe" },
+				"3-win11-32": { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 11 (32-bit)", file: "ACS38T_x86.exe" },
+				"3-win10-64": { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 10 (64-bit)", file: "ACS38T_x64.exe" },
+				"3-win10-32": { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 10 (32-bit)", file: "ACS38T_x86.exe" },
+				"3-win81-64": { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 8.1 (64-bit)", file: "ACS38T_x64.exe" },
+				"3-win81-32": { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 8.1 (32-bit)", file: "ACS38T_x86.exe" },
+				"3-win8-64":  { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 8 (64-bit)", file: "ACS38T_x64.exe" },
+				"3-win8-32":  { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 8 (32-bit)", file: "ACS38T_x86.exe" },
+				"3-win7-64":  { url: "suruculer/acs38t/ACS38T_x64.exe", label: "ACS ACR 38T — Windows 7 (64-bit)", file: "ACS38T_x64.exe" },
+				"3-win7-32":  { url: "suruculer/acs38t/ACS38T_x86.exe", label: "ACS ACR 38T — Windows 7 (32-bit)", file: "ACS38T_x86.exe" },
+				"3-fallback": { url: "suruculer/acs38t/", label: "ACS ACR 38T — Manuel İndirme", file: "acs38t" },
+				/* 4 = ACS ACR 39T */
+				"4-win11-64": { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 11 (64-bit)", file: "ACS39T_x64.exe" },
+				"4-win11-32": { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 11 (32-bit)", file: "ACS39T_x86.exe" },
+				"4-win10-64": { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 10 (64-bit)", file: "ACS39T_x64.exe" },
+				"4-win10-32": { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 10 (32-bit)", file: "ACS39T_x86.exe" },
+				"4-win81-64": { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 8.1 (64-bit)", file: "ACS39T_x64.exe" },
+				"4-win81-32": { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 8.1 (32-bit)", file: "ACS39T_x86.exe" },
+				"4-win8-64":  { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 8 (64-bit)", file: "ACS39T_x64.exe" },
+				"4-win8-32":  { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 8 (32-bit)", file: "ACS39T_x86.exe" },
+				"4-win7-64":  { url: "suruculer/acs39t/ACS39T_x64.exe", label: "ACS ACR 39T — Windows 7 (64-bit)", file: "ACS39T_x64.exe" },
+				"4-win7-32":  { url: "suruculer/acs39t/ACS39T_x86.exe", label: "ACS ACR 39T — Windows 7 (32-bit)", file: "ACS39T_x86.exe" },
+				"4-fallback": { url: "suruculer/acs39t/", label: "ACS ACR 39T — Manuel İndirme", file: "acs39t" },
+				/* 5 = Gemalto IDBRIDGE K30 */
+				"5-win11-64": { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 11 (64-bit)", file: "Gemalto_x64.exe" },
+				"5-win11-32": { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 11 (32-bit)", file: "Gemalto_x86.exe" },
+				"5-win10-64": { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 10 (64-bit)", file: "Gemalto_x64.exe" },
+				"5-win10-32": { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 10 (32-bit)", file: "Gemalto_x86.exe" },
+				"5-win81-64": { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 8.1 (64-bit)", file: "Gemalto_x64.exe" },
+				"5-win81-32": { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 8.1 (32-bit)", file: "Gemalto_x86.exe" },
+				"5-win8-64":  { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 8 (64-bit)", file: "Gemalto_x64.exe" },
+				"5-win8-32":  { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 8 (32-bit)", file: "Gemalto_x86.exe" },
+				"5-win7-64":  { url: "suruculer/gemalto/Gemalto_x64.exe", label: "Gemalto IDBRIDGE K30 — Windows 7 (64-bit)", file: "Gemalto_x64.exe" },
+				"5-win7-32":  { url: "suruculer/gemalto/Gemalto_x86.exe", label: "Gemalto IDBRIDGE K30 — Windows 7 (32-bit)", file: "Gemalto_x86.exe" },
+				"5-fallback": { url: "suruculer/gemalto/", label: "Gemalto IDBRIDGE K30 — Manuel İndirme", file: "gemalto" },
+				/* 6 = ATR 19 */
+				"6-win11-64": { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 11 (64-bit)", file: "ATR19_x64.exe" },
+				"6-win11-32": { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 11 (32-bit)", file: "ATR19_x86.exe" },
+				"6-win10-64": { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 10 (64-bit)", file: "ATR19_x64.exe" },
+				"6-win10-32": { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 10 (32-bit)", file: "ATR19_x86.exe" },
+				"6-win81-64": { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 8.1 (64-bit)", file: "ATR19_x64.exe" },
+				"6-win81-32": { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 8.1 (32-bit)", file: "ATR19_x86.exe" },
+				"6-win8-64":  { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 8 (64-bit)", file: "ATR19_x64.exe" },
+				"6-win8-32":  { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 8 (32-bit)", file: "ATR19_x86.exe" },
+				"6-win7-64":  { url: "suruculer/atr19/ATR19_x64.exe", label: "ATR 19 — Windows 7 (64-bit)", file: "ATR19_x64.exe" },
+				"6-win7-32":  { url: "suruculer/atr19/ATR19_x86.exe", label: "ATR 19 — Windows 7 (32-bit)", file: "ATR19_x86.exe" },
+				"6-fallback": { url: "suruculer/atr19/", label: "ATR 19 — Manuel İndirme", file: "atr19" }
+			}
+		};
+
+		/* ========================================================
+		   İşletim Sistemi Algılama
+		   ======================================================== */
+		function detectSystem() {
+			var ua = navigator.userAgent;
+			var platform = navigator.platform || "";
+			var os = "unknown";
+			var version = "Bilinmiyor";
+			var arch = "unknown";
+			var osKey = "unknown";
+
+			// İşletim sistemi algılama
+			if (/Windows NT 10\.0/i.test(ua)) {
+				// Windows 10 veya 11 — navigator.userAgentData ile ayırt et
+				if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+					// Async olacak, başlangıçta Win10 varsay
+					os = "Windows 10+";
+					version = "Windows 10 / 11";
+					osKey = "win10";
+				} else {
+					os = "Windows";
+					version = "Windows 10";
+					osKey = "win10";
+				}
+			} else if (/Windows NT 6\.3/i.test(ua)) {
+				os = "Windows";
+				version = "Windows 8.1";
+				osKey = "win81";
+			} else if (/Windows NT 6\.2/i.test(ua)) {
+				os = "Windows";
+				version = "Windows 8";
+				osKey = "win8";
+			} else if (/Windows NT 6\.1/i.test(ua)) {
+				os = "Windows";
+				version = "Windows 7";
+				osKey = "win7";
+			} else if (/Windows NT 6\.0/i.test(ua)) {
+				os = "Windows";
+				version = "Windows Vista";
+				osKey = "winvista";
+			} else if (/Windows NT 5\.1/i.test(ua)) {
+				os = "Windows";
+				version = "Windows XP";
+				osKey = "winxp";
+			} else if (/Mac OS X/i.test(ua)) {
+				os = "macOS";
+				var macM = ua.match(/Mac OS X ([\d_]+)/);
+				version = macM ? "macOS " + macM[1].replace(/_/g, ".") : "macOS";
+				osKey = "mac";
+			} else if (/Linux/i.test(platform)) {
+				os = "Linux";
+				version = "Linux";
+				osKey = "linux";
+			}
+
+			// Mimari algılama
+			if (/Win64|x64|WOW64|amd64/i.test(ua) || /x86_64|Win64/i.test(platform)) {
+				arch = "64";
+			} else if (/Win32|x86/i.test(platform)) {
+				arch = "32";
+			}
+
+			return { os: os, version: version, arch: arch, osKey: osKey };
+		}
+
+		/* Windows 10/11 farkını userAgentData ile algıla */
+		function refineWindowsVersion(callback) {
+			if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+				navigator.userAgentData.getHighEntropyValues(["platformVersion"]).then(function(values) {
+					var majorVer = parseInt(values.platformVersion.split(".")[0], 10);
+					if (majorVer >= 13) {
+						callback("win11", "Windows 11");
+					} else {
+						callback("win10", "Windows 10");
+					}
+				}).catch(function() {
+					callback("win10", "Windows 10");
+				});
+			}
+		}
+
+		/* ========================================================
+		   Sürücü Linklerini Güncelleme
+		   ======================================================== */
+		var currentSystem = { osKey: "unknown", arch: "64" };
+		var selectedReaderId = null;
+
+		function updateReaderDriver() {
+			var readerResult = document.getElementById("reader-result");
+			var readerBtn = document.getElementById("reader-download-btn");
+			var readerNote = document.getElementById("reader-note");
+
+			if (selectedReaderId === null) {
+				readerResult.style.display = "none";
+				readerBtn.style.display = "none";
+				readerNote.style.display = "none";
+				return;
+			}
+
+			var rid = String(selectedReaderId);
+			var key = rid + "-" + currentSystem.osKey + "-" + currentSystem.arch;
+			var fallback = rid + "-fallback";
+			var driver = driverDB.reader[key] || driverDB.reader[fallback];
+
+			if (driver) {
+				readerBtn.dataset.url = driver.url;
+				readerBtn.style.display = "inline-flex";
+				readerResult.style.display = "block";
+				readerResult.innerHTML = '<div class="driver-info__box"><span class="driver-info__label">Algılanan Sürücü:</span><strong class="driver-info__name">' + driver.label + '</strong><span class="driver-info__file">' + driver.file + '</span></div>';
+				readerNote.style.display = "block";
+				readerNote.innerHTML = '<strong>Not:</strong> Sürücüyü indirip kurun, ardından soldaki kutucuğu işaretleyin.';
+			} else {
+				readerBtn.style.display = "none";
+				readerResult.style.display = "block";
+				readerResult.innerHTML = '<div class="reader-result__box reader-result__box--warn">Bu işletim sistemi için uygun sürücü bulunamadı.</div>';
+				readerNote.style.display = "none";
+			}
+		}
+
+		function updateDriverLinks(osKey, arch) {
+			currentSystem.osKey = osKey;
+			currentSystem.arch = arch;
+			var key = osKey + "-" + arch;
+
+			// Java
+			var javaDriver = driverDB.java[key] || driverDB.java.fallback;
+			var javaBtn = document.getElementById("java-download-btn");
+			var javaInfo = document.getElementById("java-driver-info");
+			javaBtn.dataset.url = javaDriver.url;
+			javaInfo.innerHTML = '<div class="driver-info__box"><span class="driver-info__label">Algılanan Sürücü:</span><strong class="driver-info__name">' + javaDriver.label + '</strong><span class="driver-info__file">' + javaDriver.file + '</span></div>';
+
+			// Akis
+			var akisDriver = driverDB.akis[key] || driverDB.akis.fallback;
+			var akisBtn = document.getElementById("akis-download-btn");
+			var akisInfo = document.getElementById("akis-driver-info");
+			akisBtn.dataset.url = akisDriver.url;
+			akisInfo.innerHTML = '<div class="driver-info__box"><span class="driver-info__label">Algılanan Sürücü:</span><strong class="driver-info__name">' + akisDriver.label + '</strong><span class="driver-info__file">' + akisDriver.file + '</span></div>';
+
+			// Belgenet (sadece mimariye göre)
+			var belgenetDriver = driverDB.belgenet[arch] || driverDB.belgenet.fallback;
+			var belgenetBtn = document.getElementById("belgenet-download-btn");
+			var belgenetInfo = document.getElementById("belgenet-driver-info");
+			belgenetBtn.dataset.url = belgenetDriver.url;
+			belgenetInfo.innerHTML = '<div class="driver-info__box"><span class="driver-info__label">Algılanan Sürücü:</span><strong class="driver-info__name">' + belgenetDriver.label + '</strong><span class="driver-info__file">' + belgenetDriver.file + '</span></div>';
+
+			// E-İmza
+			var eimzaDriver = driverDB.eimza.default;
+			var eimzaBtn = document.getElementById("eimza-download-btn");
+			var eimzaInfo = document.getElementById("eimza-driver-info");
+			eimzaBtn.dataset.url = eimzaDriver.url;
+			eimzaInfo.innerHTML = '<div class="driver-info__box"><span class="driver-info__label">Sürücü:</span><strong class="driver-info__name">' + eimzaDriver.label + '</strong><span class="driver-info__file">' + eimzaDriver.file + '</span></div>';
+
+			// Kart okuyucu sürücüsünü de güncelle
+			updateReaderDriver();
+		}
+
+		/* ========================================================
+		   Sayfa Başlangıcı
+		   ======================================================== */
+		var sys = detectSystem();
+		var detOs = document.getElementById("det-os");
+		var detVersion = document.getElementById("det-version");
+		var detArch = document.getElementById("det-arch");
+		var detBadge = document.getElementById("det-badge");
+		var detBadgeText = document.getElementById("det-badge-text");
+		var manualOs = document.getElementById("manual-os");
+		var manualEdition = document.getElementById("manual-edition");
+		var manualArch = document.getElementById("manual-arch");
+
+		/* Sürüm listeleri (İşletim Sistemi → Sürümler) */
+		var editionMap = {
+			"1": [ // Windows
+				{ value: "win-server2003", text: "Server 2003" },
+				{ value: "win-server2008", text: "Server 2008" },
+				{ value: "winxp",          text: "XP" },
+				{ value: "winvista",       text: "Vista" },
+				{ value: "win7",           text: "7" },
+				{ value: "win8",           text: "8" },
+				{ value: "win10",          text: "10" },
+				{ value: "win-server2012", text: "Server 2012" },
+				{ value: "win11",          text: "11" },
+				{ value: "win-server2016", text: "Server 2016" },
+				{ value: "win-server2019", text: "Server 2019 ve üzeri" }
+			],
+			"2": [ // Linux
+				{ value: "pardus-2008",    text: "Pardus 2008" },
+				{ value: "pardus-2009",    text: "Pardus 2009" },
+				{ value: "pardus-2011",    text: "Pardus 2011" },
+				{ value: "pardus-2013",    text: "Pardus 2013" },
+				{ value: "pardus-kurumsal",text: "Pardus Kurumsal" },
+				{ value: "pardus-17",      text: "Pardus 17 ve üzeri" },
+				{ value: "ubuntu-1204",    text: "Ubuntu v12.04" },
+				{ value: "ubuntu-1404",    text: "Ubuntu v14.04" },
+				{ value: "ubuntu-16",      text: "Ubuntu v16 ve üzeri" },
+				{ value: "linux-diger",    text: "Diğer" },
+				{ value: "rhel-centos",    text: "Rhel ve Centos" }
+			],
+			"3": [ // Mac OS
+				{ value: "mac-elcapitan",  text: "Mac OS (El Capitan)" },
+				{ value: "mac-yosemite",   text: "Mac OS (Yosemite)" },
+				{ value: "mac-sierra",     text: "Mac OS (Sierra)" },
+				{ value: "mac-mojave",     text: "Mac OS (Mojave)" },
+				{ value: "mac-catalina",   text: "Mac OS (Catalina)" },
+				{ value: "mac-bigsur",     text: "Mac OS (Big Sur)" },
+				{ value: "mac-monterey",   text: "Mac OS (Monterey ve üzeri)" }
+			]
+		};
+
+		/* OS dropdown değişince sürüm listesini doldur */
+		manualOs.onchange = function() {
+			var editions = editionMap[manualOs.value] || [];
+			manualEdition.innerHTML = "";
+			if (editions.length === 0) {
+				var opt = document.createElement("option");
+				opt.value = "";
+				opt.textContent = "Önce İşletim Sistemi Seçin";
+				manualEdition.appendChild(opt);
+			} else {
+				var defOpt = document.createElement("option");
+				defOpt.value = "";
+				defOpt.textContent = "Sürüm Seçin";
+				manualEdition.appendChild(defOpt);
+				for (var i = 0; i < editions.length; i++) {
+					var o = document.createElement("option");
+					o.value = editions[i].value;
+					o.textContent = editions[i].text;
+					manualEdition.appendChild(o);
+				}
+			}
+		};
+
+		var shortVersionMap = {
+			win11: "11", win10: "10", win81: "8.1", win8: "8", win7: "7",
+			winvista: "Vista", winxp: "XP", mac: "macOS", linux: "Linux"
+		};
+
+		function updateUI(osKey, version, arch) {
+			var osName = /win/i.test(osKey) ? "Windows" : version;
+			var shortVer = shortVersionMap[osKey] || version;
+			detOs.textContent = osName;
+			detVersion.textContent = osKey !== "unknown" ? shortVer : "Algılanamadı";
+			detArch.textContent = arch === "64" ? "64-bit" : arch === "32" ? "32-bit" : "Bilinmiyor";
+
+			if (osKey !== "unknown" && arch !== "unknown") {
+				detBadge.className = "sysdetect__badge sysdetect__badge--ok";
+				detBadgeText.textContent = "Sistem başarıyla algılandı — sürücüler otomatik seçildi";
+			} else {
+				detBadge.className = "sysdetect__badge sysdetect__badge--warn";
+				detBadgeText.textContent = "Sistem tam algılanamadı — lütfen elle seçim yapın";
+			}
+
+			updateDriverLinks(osKey, arch);
+		}
+
+		// İlk algılama
+		updateUI(sys.osKey, sys.version, sys.arch);
+
+		// Windows 10/11 ayrımını dene
+		if (sys.osKey === "win10" || sys.os === "Windows 10+") {
+			refineWindowsVersion(function(refinedKey, refinedVersion) {
+				sys.osKey = refinedKey;
+				sys.version = refinedVersion;
+				updateUI(refinedKey, refinedVersion, sys.arch);
+			});
+		}
+
+		// Manuel dropdown'u otomatik algılanan değerlere ayarla
+		function syncManualDropdowns() {
+			if (/^win/.test(sys.osKey)) {
+				manualOs.value = "1";
+				manualOs.onchange(); // sürüm listesini doldur
+				if (manualEdition) manualEdition.value = sys.osKey;
+			} else if (/^linux/.test(sys.osKey)) {
+				manualOs.value = "2";
+				manualOs.onchange();
+			} else if (/^mac/.test(sys.osKey)) {
+				manualOs.value = "3";
+				manualOs.onchange();
+			}
+			if (manualArch && sys.arch !== "unknown") {
+				manualArch.value = sys.arch;
+			}
+		}
+		syncManualDropdowns();
+
+		// Elle değiştir butonu
+		var manualToggle = document.getElementById("manual-toggle");
+		var manualSection = document.getElementById("manual-section");
+		manualToggle.onclick = function() {
+			if (manualSection.style.display === "none") {
+				manualSection.style.display = "block";
+				manualToggle.textContent = "Otomatik Algılamaya Dön";
+				syncManualDropdowns();
+			} else {
+				manualSection.style.display = "none";
+				manualToggle.textContent = "Elle Değiştir";
+				// Otomatiğe dön
+				updateUI(sys.osKey, sys.version, sys.arch);
+			}
+		};
+
+		// Manuel uygula butonu
+		var manualApply = document.getElementById("manual-apply");
+		manualApply.onclick = function() {
+			var selEdition = manualEdition.value;
+			var selArch = manualArch.value;
+			if (!selEdition || !selArch || !manualOs.value) {
+				alert("Lütfen tüm alanları seçiniz.");
+				return;
+			}
+			updateUI(selEdition, selEdition, selArch);
+			detBadge.className = "sysdetect__badge sysdetect__badge--ok";
+			detBadgeText.textContent = "Elle seçildi — sürücüler güncellendi";
+		};
+
+		/* ========================================================
+		   Tab Navigation
+		   ======================================================== */
+		var steps = document.querySelectorAll(".inst-step");
+		var panels = document.querySelectorAll(".inst-panel");
+		var activeIndex = 0;
+
+		function switchTab(idx) {
+			for (var i = 0; i < steps.length; i++) {
+				steps[i].className = steps[i].className.replace(" inst-step--active", "");
+				panels[i].className = panels[i].className.replace(" inst-panel--visible", "");
+			}
+			steps[idx].className += " inst-step--active";
+			panels[idx].className += " inst-panel--visible";
+			activeIndex = idx;
+		}
+
+		for (var i = 0; i < steps.length; i++) {
+			(function (idx) {
+				steps[idx].onclick = function () { switchTab(idx); };
+			})(i);
+		}
+
+		/* ========================================================
+		   Checkbox / Finish Logic
+		   ======================================================== */
+		var checkboxes = document.querySelectorAll(".inst-check__input");
+		var finishBtn = document.getElementById("finish-btn");
+		var installerWarn = document.getElementById("installer-warn");
+
+		function updateFinish() {
+			var allDone = true;
+			for (var j = 0; j < checkboxes.length; j++) {
+				var stepEl = document.getElementById("step-" + j);
+				if (checkboxes[j].checked) {
+					if (stepEl.className.indexOf("inst-step--done") === -1) {
+						stepEl.className += " inst-step--done";
+					}
+				} else {
+					stepEl.className = stepEl.className.replace(" inst-step--done", "");
+					allDone = false;
+				}
+			}
+			if (allDone) {
+				finishBtn.disabled = false;
+				finishBtn.className = "button";
+				installerWarn.style.display = "none";
+			} else {
+				finishBtn.disabled = true;
+				finishBtn.className = "button button--disabled";
+				installerWarn.style.display = "block";
+			}
+		}
+
+		for (var j = 0; j < checkboxes.length; j++) {
+			checkboxes[j].onchange = updateFinish;
+		}
+
+		finishBtn.onclick = function () {
+			if (!finishBtn.disabled) {
+				alert("Tebrikler! Tüm kurulumlar tamamlandı.");
+			}
+		};
+
+		/* ========================================================
+		   Kart Okuyucu Seçimi
+		   ======================================================== */
+		var readerCards = document.querySelectorAll(".reader-card");
+		for (var r = 0; r < readerCards.length; r++) {
+			(function(card) {
+				card.onclick = function() {
+					// Önceki seçimi kaldır
+					for (var k = 0; k < readerCards.length; k++) {
+						readerCards[k].className = readerCards[k].className.replace(" reader-card--selected", "");
+					}
+					// Yeni seçimi uygula
+					card.className += " reader-card--selected";
+					selectedReaderId = card.getAttribute("data-reader");
+					updateReaderDriver();
+				};
+			})(readerCards[r]);
+		}
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>E-İmza Rehberi - Uygulama Kontrol</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="page page--center">
+
+			<div id="results-screen" class="results-wrap">
+				<div class="results-card">
+					<h2 class="results-card__title">Kaldırılması gereken uygulamalar</h2>
+					<p class="results-card__desc">Aşağıdaki uygulamalar bilgisayarınızda bulunabilir. Her birini sırasıyla kaldırın.</p>
+
+					<!-- ACS -->
+					<div class="app-block">
+						<div class="app-block__header">
+							<label class="app-check">
+								<input type="checkbox" class="app-check__input" />
+								<span class="app-check__box"></span>
+								<span class="app-block__name">1. ACS</span>
+							</label>
+						</div>
+						<div class="app-block__steps">
+							<ol>
+								<li><strong>Denetim Masası</strong> &gt; Programlar &gt; <strong>Program Kaldır</strong> açın.</li>
+								<li>Sağ üstteki arama çubuğuna <strong>ACS</strong> yazın.</li>
+								<li>Çıkan sonuçları seçip <strong>Kaldır</strong> butonuna tıklayın.</li>
+							</ol>
+						</div>
+					</div>
+
+					<!-- AKIS -->
+					<div class="app-block">
+						<div class="app-block__header">
+							<label class="app-check">
+								<input type="checkbox" class="app-check__input" />
+								<span class="app-check__box"></span>
+								<span class="app-block__name">2. AKIS</span>
+							</label>
+						</div>
+						<div class="app-block__steps">
+							<ol>
+								<li><strong>Denetim Masası</strong> &gt; Programlar &gt; <strong>Program Kaldır</strong> açın.</li>
+								<li>Sağ üstteki arama çubuğuna <strong>AKIS</strong> yazın.</li>
+								<li>Çıkan sonuçları seçip <strong>Kaldır</strong> butonuna tıklayın.</li>
+							</ol>
+						</div>
+					</div>
+
+					<!-- Belgenet İmza -->
+					<div class="app-block">
+						<div class="app-block__header">
+							<label class="app-check">
+								<input type="checkbox" class="app-check__input" />
+								<span class="app-check__box"></span>
+								<span class="app-block__name">3. Belgenet İmza</span>
+							</label>
+						</div>
+						<div class="app-block__steps">
+							<ol>
+								<li><strong>Denetim Masası</strong> &gt; Programlar &gt; <strong>Program Kaldır</strong> açın.</li>
+								<li>Sağ üstteki arama çubuğuna <strong>Belgenet</strong> yazın.</li>
+								<li>Çıkan sonuçları seçip <strong>Kaldır</strong> butonuna tıklayın.</li>
+							</ol>
+						</div>
+					</div>
+
+					<!-- E-İmza Uygulaması -->
+					<div class="app-block app-block--highlight">
+						<div class="app-block__header">
+							<label class="app-check">
+								<input type="checkbox" class="app-check__input" />
+								<span class="app-check__box"></span>
+								<span class="app-block__name">4. E-İmza Uygulaması</span>
+							</label>
+							<span class="app-block__extra">Ek adımlar gerekli</span>
+						</div>
+						<div class="app-block__steps">
+							<p class="app-block__subtitle">Adım 1: Programı kaldırın</p>
+							<ol>
+								<li><strong>Denetim Masası</strong> &gt; Programlar &gt; <strong>Program Kaldır</strong> açın.</li>
+								<li>Sağ üstteki arama çubuğuna <strong>e-imza</strong> yazın.</li>
+								<li>Çıkan sonuçları seçip <strong>Kaldır</strong> butonuna tıklayın.</li>
+							</ol>
+
+							<p class="app-block__subtitle">Adım 2: Görev Yöneticisinden sonlandırın</p>
+							<ol>
+								<li><strong>Görev Yöneticisi</strong>'ni açın (Ctrl + Shift + Esc).</li>
+								<li>Listede <strong>e-imza</strong> ile ilgili işlemi bulun.</li>
+								<li>Sağ tıklayıp <strong>Görevi Sonlandır / İşlemi Sonlandır</strong> seçin.</li>
+							</ol>
+
+							<p class="app-block__subtitle">Adım 3: Kalan dosyaları silin</p>
+							<ol>
+								<li><strong>Win + R</strong> tuşlarına basın veya <strong>Çalıştır</strong>'ı açın.</li>
+								<li>Kutuya <strong>%appdata%</strong> yazıp Enter'a basın.</li>
+								<li>Açılan pencerede <strong>Local</strong> klasörüne girin.</li>
+								<li><strong>apps</strong> klasörüne girin.</li>
+								<li><strong>2.0</strong> klasörünü bulup <strong>silin</strong>.</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+
+				<div class="results-footer">
+					<p class="results-footer__warn" id="footer-warn">Devam etmeden önce yukarıdaki tüm adımları tamamlayıp işaretleyin.</p>
+					<button class="button button--disabled" id="step3-next" type="button" disabled>İleri</button>
+				</div>
+			</div>
+
+		</div>
+
+		<script>
+			var step3Next = document.getElementById("step3-next");
+			var footerWarn = document.getElementById("footer-warn");
+			var checkboxes = document.querySelectorAll(".app-check__input");
+
+			function updateButton() {
+				var allChecked = true;
+				for (var i = 0; i < checkboxes.length; i++) {
+					if (!checkboxes[i].checked) {
+						allChecked = false;
+						break;
+					}
+				}
+				if (allChecked) {
+					step3Next.disabled = false;
+					step3Next.className = "button";
+					footerWarn.style.display = "none";
+				} else {
+					step3Next.disabled = true;
+					step3Next.className = "button button--disabled";
+					footerWarn.style.display = "block";
+				}
+			}
+
+			for (var i = 0; i < checkboxes.length; i++) {
+				checkboxes[i].onchange = updateButton;
+			}
+
+			step3Next.onclick = function () {
+				if (!step3Next.disabled) {
+					window.location.href = "step4.html";
+				}
+			};
+		</script>
+	</body>
+</html>

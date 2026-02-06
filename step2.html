@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>E-İmza Rehberi - Uygulama Seçimi</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="page page--center">
+			<div class="quad-card">
+				<h2 class="quad-card__title">Uygulama Seçin</h2>
+				<div class="quad-grid">
+					<div class="quad-item quad-item--disabled">
+						<div class="quad-item__label">EBYS</div>
+						<div class="quad-item__badge">Yapım aşamasında</div>
+					</div>
+					<div class="quad-item quad-item--disabled">
+						<div class="quad-item__label">TAKBİS</div>
+						<div class="quad-item__badge">Yapım aşamasında</div>
+					</div>
+					<a href="#" class="quad-item quad-item--active" id="megsis-link">
+						<div class="quad-item__label">MEGSİS</div>
+					</a>
+					<div class="quad-item quad-item--disabled">
+						<div class="quad-item__label">E-Devlet / Diğer</div>
+						<div class="quad-item__badge">Yapım aşamasında</div>
+					</div>
+				</div>
+				<div class="quad-footer" id="quad-footer" style="display:none;">
+					<button class="button" id="step2-next" type="button">İleri</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			var megsisLink = document.getElementById("megsis-link");
+			var quadFooter = document.getElementById("quad-footer");
+			var allItems = document.getElementsByClassName("quad-item");
+
+			megsisLink.onclick = function (e) {
+				e.preventDefault();
+				for (var i = 0; i < allItems.length; i++) {
+					allItems[i].className = allItems[i].className.replace(" quad-item--selected", "");
+				}
+				megsisLink.className += " quad-item--selected";
+				quadFooter.style.display = "block";
+			};
+
+			var step2Next = document.getElementById("step2-next");
+			step2Next.onclick = function () {
+				window.location.href = "step3.html";
+			};
+		</script>
+	</body>
+</html>
