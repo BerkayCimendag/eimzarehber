@@ -1,8 +1,6 @@
 var browserMessage = document.getElementById("browser-message");
 var statusCard = document.getElementById("browser-status");
 var systemCard = document.getElementById("system-card");
-var osVersionEl = document.getElementById("os-version");
-var osArchEl = document.getElementById("os-arch");
 var nextActions = document.getElementById("next-actions");
 
 var FIREFOX_VERSION_REQUIRED = "37.0";
@@ -71,10 +69,6 @@ function updateSystemInfo() {
 	if (!systemCard) {
 		return;
 	}
-
-	var osInfo = getOsInfo();
-	osVersionEl.textContent = osInfo.version;
-	osArchEl.textContent = osInfo.arch;
 	systemCard.classList.remove("is-hidden");
 }
 
